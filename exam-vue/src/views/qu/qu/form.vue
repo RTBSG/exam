@@ -160,6 +160,14 @@ export default {
       {
         value: 3,
         label: '判断题'
+      },
+      {
+        value: 5,
+        label: '填空题'
+      },
+      {
+        value: 6,
+        label: '编程题'
       }
       ],
 

@@ -132,7 +132,9 @@ export default {
         leftSeconds: 99999,
         radioList: [],
         multiList: [],
-        judgeList: []
+        judgeList: [],
+        fillList: [],
+        codeList: []
       },
       // 单选选定值
       radioValue: '',
@@ -187,6 +189,16 @@ export default {
       })
 
       this.paperData.judgeList.forEach(function(item) {
+        if (!item.answered) {
+          notAnswered += 1
+        }
+      })
+      this.paperData.fillList.forEach(function(item) {
+        if (!item.answered) {
+          notAnswered += 1
+        }
+      })
+      this.paperData.codeList.forEach(function(item) {
         if (!item.answered) {
           notAnswered += 1
         }
@@ -344,6 +356,10 @@ export default {
           this.cardItem = this.paperData.multiList[0]
         } else if (this.paperData.judgeList && this.paperData.judgeList.length>0) {
           this.cardItem = this.paperData.judgeList[0]
+        } else if (this.paperData.fillList && this.paperData.fillList.length>0) {
+          this.cardItem = this.paperData.fillList[0]
+        } else if (this.paperData.codeList && this.paperData.codeList.length>0) {
+          this.cardItem = this.paperData.codeList[0]
         }
 
         const that = this
@@ -359,7 +375,12 @@ export default {
         this.paperData.judgeList.forEach(function(item) {
           that.allItem.push(item)
         })
-
+        this.paperData.fillList.forEach(function(item) {
+          that.allItem.push(item)
+        })
+        this.paperData.codeList.forEach(function(item) {
+          that.allItem.push(item)
+        })
         // 当前选定
         this.fetchQuData(this.cardItem)
       })

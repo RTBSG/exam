@@ -74,5 +74,28 @@ public class ExamRepo extends Model<ExamRepo> {
     */
     @TableField("judge_score")
     private Integer judgeScore;
+    /**
+     * 判断题数量
+     */
+    @TableField("fill_count")
+    private Integer fillCount;
+
+    /**
+     * 判断题分数
+     */
+    @TableField("fill_score")
+    private Integer fillScore;
+
+    /**
+     * 判断题数量
+     */
+    @TableField("code_count")
+    private Integer codeCount;
+
+    /**
+     * 判断题分数
+     */
+    @TableField("code_score")
+    private Integer codeScore;
     
 }

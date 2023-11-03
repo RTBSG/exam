@@ -37,7 +37,7 @@
           >
 
             <template v-slot="scope">
-              <el-input-number v-model="scope.row.radioCount" :min="0" :max="scope.row.totalRadio" :controls="false" style="width: 100px" /> / {{ scope.row.totalRadio }}
+              <el-input-number v-model="scope.row.radioCount" :min="0" :max="scope.row.totalRadio" :controls="false" style="width: 50px" /> / {{ scope.row.totalRadio }}
             </template>
 
           </el-table-column>
@@ -47,7 +47,7 @@
             align="center"
           >
             <template v-slot="scope">
-              <el-input-number v-model="scope.row.radioScore" :min="0" :controls="false" style="width: 100%" />
+              <el-input-number v-model="scope.row.radioScore" :min="0" :controls="false" style="width: 50%" />
             </template>
           </el-table-column>
 
@@ -57,7 +57,7 @@
           >
 
             <template v-slot="scope">
-              <el-input-number v-model="scope.row.multiCount" :min="0" :max="scope.row.totalMulti" :controls="false" style="width: 100px" /> / {{ scope.row.totalMulti }}
+              <el-input-number v-model="scope.row.multiCount" :min="0" :max="scope.row.totalMulti" :controls="false" style="width: 50px" /> / {{ scope.row.totalMulti }}
             </template>
 
           </el-table-column>
@@ -67,7 +67,7 @@
             align="center"
           >
             <template v-slot="scope">
-              <el-input-number v-model="scope.row.multiScore" :min="0" :controls="false" style="width: 100%" />
+              <el-input-number v-model="scope.row.multiScore" :min="0" :controls="false" style="width: 50%" />
             </template>
           </el-table-column>
 
@@ -77,7 +77,7 @@
           >
 
             <template v-slot="scope">
-              <el-input-number v-model="scope.row.judgeCount" :min="0" :max="scope.row.totalJudge" :controls="false" style="width: 100px" />  / {{ scope.row.totalJudge }}
+              <el-input-number v-model="scope.row.judgeCount" :min="0" :max="scope.row.totalJudge" :controls="false" style="width: 50px" />  / {{ scope.row.totalJudge }}
             </template>
 
           </el-table-column>
@@ -87,11 +87,49 @@
             align="center"
           >
             <template v-slot="scope">
-              <el-input-number v-model="scope.row.judgeScore" :min="0" :controls="false" style="width: 100%" />
+              <el-input-number v-model="scope.row.judgeScore" :min="0" :controls="false" style="width: 50%" />
             </template>
           </el-table-column>
 
           <el-table-column
+            label="填空题数量"
+            align="center"
+          >
+
+            <template v-slot="scope">
+              <el-input-number v-model="scope.row.fillCount" :min="0" :max="scope.row.totalFill" :controls="false" style="width: 50px" />  / {{ scope.row.totalFill }}
+            </template>
+
+          </el-table-column>
+          <el-table-column
+            label="填空题分数"
+            align="center"
+          >
+            <template v-slot="scope">
+              <el-input-number v-model="scope.row.fillScore" :min="0" :controls="false" style="width: 50%" />
+            </template>
+          </el-table-column>
+
+          <el-table-column
+            label="编程题数量"
+            align="center"
+          >
+            <template v-slot="scope">
+              <el-input-number v-model="scope.row.codeCount" :min="0" :max="scope.row.totalCode" :controls="false" style="width: 50px" />  / {{ scope.row.totalCode }}
+            </template>
+
+          </el-table-column>
+          <el-table-column
+            label="编程题分数"
+            align="center"
+          >
+            <template v-slot="scope">
+              <el-input-number v-model="scope.row.codeScore" :min="0" :controls="false" style="width: 50%" />
+            </template>
+          </el-table-column>
+
+          <el-table-column
+            fixed="right"
             label="删除"
             align="center"
             width="80px"
@@ -289,6 +327,7 @@ export default {
         this.excludes = []
         for (let i = 0; i<val.length; i++) {
           const item = val[i]
+          console.log(item)
           if (item.radioCount > 0 && item.radioScore>0) {
             totalScore += item.radioCount * item.radioScore
           }
@@ -299,6 +338,12 @@ export default {
 
           if (item.judgeCount>0 && item.judgeScore>0) {
             totalScore += item.judgeCount * item.judgeScore
+          }
+          if (item.fillCount>0 && item.fillScore>0) {
+            totalScore += item.fillCount * item.fillScore
+          }
+          if (item.codeCount>0 && item.codeScore>0) {
+            totalScore += item.codeCount * item.codeScore
           }
           this.excludes.push(item.id)
         }

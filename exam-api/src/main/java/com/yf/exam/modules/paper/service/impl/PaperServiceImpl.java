@@ -171,6 +171,8 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
         List<PaperQuDTO> radioList = new ArrayList<>();
         List<PaperQuDTO> multiList = new ArrayList<>();
         List<PaperQuDTO> judgeList = new ArrayList<>();
+        List<PaperQuDTO> fillList = new ArrayList<>();
+        List<PaperQuDTO> codeList = new ArrayList<>();
         for(PaperQuDTO item: list){
             if(QuType.RADIO.equals(item.getQuType())){
                 radioList.add(item);
@@ -180,6 +182,13 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
             }
             if(QuType.JUDGE.equals(item.getQuType())){
                 judgeList.add(item);
+            }
+
+            if(QuType.FILL.equals(item.getQuType())){
+                fillList.add(item);
+            }
+            if(QuType.CODING.equals(item.getQuType())){
+                codeList.add(item);
             }
         }
 
@@ -276,6 +285,28 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
                         excludes.add(qu.getId());
                     }
                 }
+
+                // 填空题 TODO
+                if(item.getFillCount() > 0) {
+                    List<Qu> fillList = quService.listByRandom(item.getRepoId(), QuType.FILL, excludes,
+                            item.getFillCount());
+                    for (Qu qu : fillList) {
+                        PaperQu paperQu = this.processPaperQu(item, qu);
+                        quList.add(paperQu);
+                        excludes.add(qu.getId());
+                    }
+                }
+
+                // 编程题
+                if(item.getCodeCount() > 0) {
+                    List<Qu> codeList = quService.listByRandom(item.getRepoId(), QuType.CODING, excludes,
+                            item.getFillCount());
+                    for (Qu qu : codeList) {
+                        PaperQu paperQu = this.processPaperQu(item, qu);
+                        quList.add(paperQu);
+                        excludes.add(qu.getId());
+                    }
+                }
             }
         }
         return quList;
@@ -312,7 +343,14 @@ public class PaperServiceImpl extends ServiceImpl<PaperMapper, Paper> implements
             paperQu.setScore(repo.getJudgeScore());
             paperQu.setActualScore(repo.getJudgeScore());
         }
-
+        if (QuType.FILL.equals(qu.getQuType())) {
+            paperQu.setScore(repo.getFillScore());
+            paperQu.setActualScore(repo.getFillScore());
+        }
+        if (QuType.CODING.equals(qu.getQuType())) {
+            paperQu.setScore(repo.getCodeScore());
+            paperQu.setActualScore(repo.getCodeScore());
+        }
         return paperQu;
     }
 

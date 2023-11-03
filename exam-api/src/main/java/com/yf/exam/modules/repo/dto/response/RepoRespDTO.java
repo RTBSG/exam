@@ -27,5 +27,10 @@ public class RepoRespDTO extends RepoDTO {
 
     @ApiModelProperty(value = "判断题数量", required=true)
     private Integer judgeCount;
+    @ApiModelProperty(value = "填空题数量", required=true)
+    private Integer fillCount;
+
+    @ApiModelProperty(value = "编程题数量", required=true)
+    private Integer codeCount;
 
 }

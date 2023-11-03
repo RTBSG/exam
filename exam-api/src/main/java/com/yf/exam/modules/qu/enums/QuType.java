@@ -22,5 +22,13 @@ public interface QuType {
      * 判断题
      */
     Integer JUDGE = 3;
+    /**
+     * 填空
+     */
+    Integer FILL = 5;
+    /**
+     * 编程题
+     */
+    Integer CODING = 6;
     
 }
